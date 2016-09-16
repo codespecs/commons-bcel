@@ -59,6 +59,9 @@
     <commons.jira.pid>12314220</commons.jira.pid>
     <commons.findbugs.version>3.0.3</commons.findbugs.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+    <!-- These properties will be set by the Maven Dependency plugin -->
+    <annotatedJdk>${org.checkerframework:jdk7:jar}</annotatedJdk>
+    <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac>
     <!-- Latest Clirr Plugin version (2.7) causes NPE -->
     <commons.clirr.version>2.6.1</commons.clirr.version>
   </properties>
@@ -239,7 +242,24 @@
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
         <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <fork>true</fork>
+          <annotationProcessors>
+            <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
+            <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+            <annotationProcessor>org.checkerframework.checker.signature.SignatureChecker</annotationProcessor>
+          </annotationProcessors>
+          <compilerArgs>
+            <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
+            <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg>
+            <!-- -AuseDefaultsForUncheckedCode=source causes compilation errors in
+                 any library that uses an unannotated part of BCEL. -->
+            <!-- <arg>-AuseDefaultsForUncheckedCode=source</arg> -->
+            <arg>-Awarns</arg>
+          </compilerArgs>
           <testExcludes>
             <testExclude>**/*Benchmark*</testExclude>
           </testExcludes>
@@ -308,6 +328,18 @@
           <propertyExpansion>config_loc=${basedir}</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -432,9 +464,64 @@
       <version>3.4</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>1.9.13</version>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker</artifactId>
+      <version>1.9.13</version>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>compiler</artifactId>
+      <version>1.9.13</version>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>jdk7</artifactId>
+      <version>1.9.13</version>
+    </dependency>
   </dependencies>
 
   <profiles>
+    <!-- Profile to use the version of Checker Framework installed locally-->
+    <profile>
+      <id>checkerframework-local</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-qual</artifactId>
+          <version>0.0.0</version>
+          <scope>system</scope>
+          <systemPath>${CHECKERFRAMEWORK}/checker/dist/checker-qual.jar</systemPath>
+        </dependency>
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker</artifactId>
+          <version>0.0.0</version>
+          <scope>system</scope>
+          <systemPath>${CHECKERFRAMEWORK}/checker/dist/checker.jar</systemPath>
+        </dependency>
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>compiler</artifactId>
+          <version>0.0.0</version>
+          <scope>system</scope>
+          <systemPath>${CHECKERFRAMEWORK}/checker/dist/javac.jar</systemPath>
+        </dependency>
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>jdk7</artifactId>
+          <version>0.0.0</version>
+          <scope>system</scope>
+          <systemPath>${CHECKERFRAMEWORK}/checker/dist/jdk7.jar</systemPath>
+        </dependency>
+      </dependencies>
+    </profile>
+
     <!--
         Profile to ignore certain Clirr errors
         To show all the errors, use -P!quieten-clirr or -Dclirr.allDifferences

@@ -23,6 +23,11 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+/*>>>
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.AnnotatedFor;
+*/
+
 /**
  * This class represents the constant pool, i.e., a table of constants, of
  * a parsed classfile. It may contain null references, due to the JVM
@@ -35,6 +40,7 @@ import org.apache.bcel.Const;
  * @see     Constant
  * @see     org.apache.bcel.generic.ConstantPoolGen
  */
+/*@AnnotatedFor({"nullness"})*/
 public class ConstantPool implements Cloneable, Node {
 
     private Constant[] constant_pool;
