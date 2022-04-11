@@ -25,9 +25,11 @@ import java.util.Set;
 
 import org.apache.bcel.classfile.Utility;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Instances of this class give users a handle to the instructions contained in
@@ -45,6 +47,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @see BranchHandle
  * @see InstructionList
  */
+@AnnotatedFor({"signedness"})
 public @UsesObjectEquals class InstructionHandle {
 
     private InstructionHandle next;
@@ -55,7 +58,7 @@ public @UsesObjectEquals class InstructionHandle {
      * @deprecated (since 6.0) will be made private; do not access directly, use getter/setter
      */
     @Deprecated
-    protected int i_position = -1; // byte code offset of instruction
+    protected @NonNegative int i_position; // byte code offset of instruction
 
     private Set<InstructionTargeter> targeters;
     private Map<Object, Object> attributes;
@@ -153,7 +156,7 @@ public @UsesObjectEquals class InstructionHandle {
      * instruction. This is accurate only after
      * InstructionList.setPositions() has been called.
      */
-    public int getPosition() {
+    public @NonNegative int getPosition() {
         return i_position;
     }
 
@@ -161,7 +164,7 @@ public @UsesObjectEquals class InstructionHandle {
     /** Set the position, i.e., the byte code offset of the contained
      * instruction.
      */
-    void setPosition( final int pos ) {
+    void setPosition( final @NonNegative int pos ) {
         i_position = pos;
     }
 
@@ -174,7 +177,6 @@ public @UsesObjectEquals class InstructionHandle {
         next = prev = null;
         instruction.dispose();
         instruction = null;
-        i_position = -1;
         attributes = null;
         removeAllTargeters();
     }

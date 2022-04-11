@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from <em>Attribute</em> and represents a constant
  * value, i.e., a default value for initializing a class field.
@@ -30,9 +33,10 @@ import org.apache.bcel.Const;
  *
  * @see     Attribute
  */
+@AnnotatedFor({"signedness"})
 public final class ConstantValue extends Attribute {
 
-    private int constantValueIndex;
+    private @NonNegative int constantValueIndex;
 
 
     /**
@@ -52,7 +56,7 @@ public final class ConstantValue extends Attribute {
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    ConstantValue(final int name_index, final int length, final DataInput input, final ConstantPool constant_pool)
+    ConstantValue(final @NonNegative int name_index, final @NonNegative int length, final DataInput input, final ConstantPool constant_pool)
             throws IOException {
         this(name_index, length, input.readUnsignedShort(), constant_pool);
     }
@@ -64,7 +68,7 @@ public final class ConstantValue extends Attribute {
      * @param constantValueIndex Index in constant pool
      * @param constant_pool Array of constants
      */
-    public ConstantValue(final int name_index, final int length, final int constantValueIndex,
+    public ConstantValue(final @NonNegative int name_index, final @NonNegative int length, final @NonNegative int constantValueIndex,
             final ConstantPool constant_pool) {
         super(Const.ATTR_CONSTANT_VALUE, name_index, length, constant_pool);
         this.constantValueIndex = constantValueIndex;
@@ -100,7 +104,7 @@ public final class ConstantValue extends Attribute {
     /**
      * @return Index in constant pool of constant value.
      */
-    public int getConstantValueIndex() {
+    public @NonNegative int getConstantValueIndex() {
         return constantValueIndex;
     }
 
@@ -108,7 +112,7 @@ public final class ConstantValue extends Attribute {
     /**
      * @param constantValueIndex the index info the constant pool of this constant value
      */
-    public void setConstantValueIndex( final int constantValueIndex ) {
+    public void setConstantValueIndex( final @NonNegative int constantValueIndex ) {
         this.constantValueIndex = constantValueIndex;
     }
 

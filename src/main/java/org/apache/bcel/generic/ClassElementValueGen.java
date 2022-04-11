@@ -24,17 +24,21 @@ import org.apache.bcel.classfile.ClassElementValue;
 import org.apache.bcel.classfile.ConstantUtf8;
 import org.apache.bcel.classfile.ElementValue;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public class ClassElementValueGen extends ElementValueGen
 {
     // For primitive types and string type, this points to the value entry in
     // the cpool
     // For 'class' this points to the class entry in the cpool
-    private int idx;
+    private @NonNegative int idx;
 
-    protected ClassElementValueGen(final int typeIdx, final ConstantPoolGen cpool)
+    protected ClassElementValueGen(final @NonNegative int typeIdx, final ConstantPoolGen cpool)
     {
         super(ElementValueGen.CLASS, cpool);
         this.idx = typeIdx;
@@ -73,7 +77,7 @@ public class ClassElementValueGen extends ElementValueGen
         }
     }
 
-    public int getIndex()
+    public @NonNegative int getIndex()
     {
         return idx;
     }

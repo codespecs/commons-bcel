@@ -23,16 +23,20 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from <em>Attribute</em> and represents a reference
  * to a PMG attribute.
  *
  * @see     Attribute
  */
+@AnnotatedFor({"signedness"})
 public final class PMGClass extends Attribute {
 
-    private int pmgClassIndex;
-    private int pmgIndex;
+    private @NonNegative int pmgClassIndex;
+    private @NonNegative int pmgIndex;
 
 
     /**
@@ -53,7 +57,7 @@ public final class PMGClass extends Attribute {
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    PMGClass(final int name_index, final int length, final DataInput input, final ConstantPool constant_pool)
+    PMGClass(final @NonNegative int name_index, final @NonNegative int length, final DataInput input, final ConstantPool constant_pool)
             throws IOException {
         this(name_index, length, input.readUnsignedShort(), input.readUnsignedShort(), constant_pool);
     }
@@ -66,7 +70,7 @@ public final class PMGClass extends Attribute {
      * @param pmgClassIndex Index in constant pool to CONSTANT_Utf8
      * @param constantPool Array of constants
      */
-    public PMGClass(final int name_index, final int length, final int pmgIndex, final int pmgClassIndex,
+    public PMGClass(final @NonNegative int name_index, final @NonNegative int length, final @NonNegative int pmgIndex, final @NonNegative int pmgClassIndex,
             final ConstantPool constantPool) {
         super(Const.ATTR_PMG, name_index, length, constantPool);
         this.pmgIndex = pmgIndex;
@@ -104,7 +108,7 @@ public final class PMGClass extends Attribute {
     /**
      * @return Index in constant pool of source file name.
      */
-    public int getPMGClassIndex() {
+    public @NonNegative int getPMGClassIndex() {
         return pmgClassIndex;
     }
 
@@ -112,7 +116,7 @@ public final class PMGClass extends Attribute {
     /**
      * @param pmgClassIndex
      */
-    public void setPMGClassIndex( final int pmgClassIndex ) {
+    public void setPMGClassIndex( final @NonNegative int pmgClassIndex ) {
         this.pmgClassIndex = pmgClassIndex;
     }
 
@@ -120,7 +124,7 @@ public final class PMGClass extends Attribute {
     /**
      * @return Index in constant pool of source file name.
      */
-    public int getPMGIndex() {
+    public @NonNegative int getPMGIndex() {
         return pmgIndex;
     }
 
@@ -128,7 +132,7 @@ public final class PMGClass extends Attribute {
     /**
      * @param pmgIndex
      */
-    public void setPMGIndex( final int pmgIndex ) {
+    public void setPMGIndex( final @NonNegative int pmgIndex ) {
         this.pmgIndex = pmgIndex;
     }
 

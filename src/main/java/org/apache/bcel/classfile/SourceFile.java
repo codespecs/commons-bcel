@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from <em>Attribute</em> and represents a reference
  * to the source file of this class.  At most one SourceFile attribute
@@ -31,9 +34,10 @@ import org.apache.bcel.Const;
  *
  * @see     Attribute
  */
+@AnnotatedFor({"signedness"})
 public final class SourceFile extends Attribute {
 
-    private int sourceFileIndex;
+    private @NonNegative int sourceFileIndex;
 
 
     /**
@@ -53,7 +57,7 @@ public final class SourceFile extends Attribute {
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    SourceFile(final int name_index, final int length, final DataInput input, final ConstantPool constant_pool)
+    SourceFile(final @NonNegative int name_index, final @NonNegative int length, final DataInput input, final ConstantPool constant_pool)
             throws IOException {
         this(name_index, length, input.readUnsignedShort(), constant_pool);
     }
@@ -72,7 +76,7 @@ public final class SourceFile extends Attribute {
      * information has to be supplied the consumer of this attribute - in
      * many cases, the JVM.
      */
-    public SourceFile(final int name_index, final int length, final int sourceFileIndex, final ConstantPool constantPool) {
+    public SourceFile(final @NonNegative int name_index, final @NonNegative int length, final @NonNegative int sourceFileIndex, final ConstantPool constantPool) {
         super(Const.ATTR_SOURCE_FILE, name_index, length, constantPool);
         this.sourceFileIndex = sourceFileIndex;
     }
@@ -107,7 +111,7 @@ public final class SourceFile extends Attribute {
     /**
      * @return Index in constant pool of source file name.
      */
-    public int getSourceFileIndex() {
+    public @NonNegative int getSourceFileIndex() {
         return sourceFileIndex;
     }
 
@@ -115,7 +119,7 @@ public final class SourceFile extends Attribute {
     /**
      * @param sourceFileIndex
      */
-    public void setSourceFileIndex( final int sourceFileIndex ) {
+    public void setSourceFileIndex( final @NonNegative int sourceFileIndex ) {
         this.sourceFileIndex = sourceFileIndex;
     }
 

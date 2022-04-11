@@ -23,7 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * This class represents a chunk of Java byte code contained in a
@@ -42,10 +44,11 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @see     LineNumberTable
  * @see LocalVariableTable
  */
+@AnnotatedFor({"signedness"})
 public final class Code extends Attribute {
 
-    private int maxStack; // Maximum size of stack used by this method  // TODO this could be made final (setter is not used)
-    private int maxLocals; // Number of local variables  // TODO this could be made final (setter is not used)
+    private @NonNegative int maxStack; // Maximum size of stack used by this method  // TODO this could be made final (setter is not used)
+    private @NonNegative int maxLocals; // Number of local variables  // TODO this could be made final (setter is not used)
     private byte[] code; // Actual byte code
     private CodeException[] exceptionTable; // Table of handled exceptions
     private Attribute[] attributes; // or LocalVariable
@@ -67,7 +70,7 @@ public final class Code extends Attribute {
      * @param file Input stream
      * @param constant_pool Array of constants
      */
-    Code(final int name_index, final int length, final DataInput file, final ConstantPool constant_pool)
+    Code(final @NonNegative int name_index, final @NonNegative int length, final DataInput file, final ConstantPool constant_pool)
             throws IOException {
         // Initialize with some default values which will be overwritten later
         this(name_index, length, file.readUnsignedShort(), file.readUnsignedShort(), (byte[]) null,
@@ -109,7 +112,7 @@ public final class Code extends Attribute {
      * @param attributes Attributes of code: LineNumber or LocalVariable
      * @param constant_pool Array of constants
      */
-    public Code(final int name_index, final int length, final int maxStack, final int maxLocals, final byte @Nullable [] code,
+    public Code(final @NonNegative int name_index, final @NonNegative int length, final @NonNegative int maxStack, final @NonNegative int maxLocals, final byte @Nullable [] code,
             final CodeException @Nullable [] exceptionTable, final Attribute @Nullable [] attributes, final ConstantPool constant_pool) {
         super(Const.ATTR_CODE, name_index, length, constant_pool);
         this.maxStack = maxStack;
@@ -213,7 +216,7 @@ public final class Code extends Attribute {
     /**
      * @return Number of local variables.
      */
-    public int getMaxLocals() {
+    public @NonNegative int getMaxLocals() {
         return maxLocals;
     }
 
@@ -221,7 +224,7 @@ public final class Code extends Attribute {
     /**
      * @return Maximum size of stack used by this method.
      */
-    public int getMaxStack() {
+    public @NonNegative int getMaxStack() {
         return maxStack;
     }
 
@@ -230,7 +233,7 @@ public final class Code extends Attribute {
      * @return the internal length of this code attribute (minus the first 6 bytes)
      * and excluding all its attributes
      */
-    private int getInternalLength() {
+    private @NonNegative int getInternalLength() {
         return 2 /*maxStack*/+ 2 /*maxLocals*/+ 4 /*code length*/
                 + code.length /*byte-code*/
                 + 2 /*exception-table length*/
@@ -243,8 +246,8 @@ public final class Code extends Attribute {
      * @return the full size of this code attribute, minus its first 6 bytes,
      * including the size of all its contained attributes
      */
-    private int calculateLength() {
-        int len = 0;
+    private @NonNegative int calculateLength() {
+        @NonNegative int len = 0;
         if (attributes != null) {
             for (final Attribute attribute : attributes) {
                 len += attribute.getLength() + 6 /*attribute header size*/;
@@ -284,7 +287,7 @@ public final class Code extends Attribute {
     /**
      * @param maxLocals maximum number of local variables
      */
-    public void setMaxLocals( final int maxLocals ) {
+    public void setMaxLocals( final @NonNegative int maxLocals ) {
         this.maxLocals = maxLocals;
     }
 
@@ -292,7 +295,7 @@ public final class Code extends Attribute {
     /**
      * @param maxStack maximum stack size
      */
-    public void setMaxStack( final int maxStack ) {
+    public void setMaxStack( final @NonNegative int maxStack ) {
         this.maxStack = maxStack;
     }
 

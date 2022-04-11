@@ -26,6 +26,8 @@ import org.apache.bcel.verifier.exc.StructuralCodeConstraintException;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * This class implements an array of local variables used for symbolic JVM
  * simulation.
@@ -68,7 +70,7 @@ public class LocalVariables implements Cloneable {
      * @return the type of the local variable slot index.
      */
     @Pure
-    public Type get(final int slotIndex) {
+    public Type get(final @NonNegative int slotIndex) {
         return locals[slotIndex];
     }
 
@@ -98,7 +100,7 @@ public class LocalVariables implements Cloneable {
      * @param slotIndex Target slot index.
      * @param type Type to save at the given slot index.
      */
-    public void set(final int slotIndex, final Type type) { // TODO could be package-protected?
+    public void set(final @NonNegative int slotIndex, final Type type) { // TODO could be package-protected?
         if (type == Type.BYTE || type == Type.SHORT || type == Type.BOOLEAN || type == Type.CHAR) {
             throw new AssertionViolatedException("LocalVariables do not know about '"+type+"'. Use Type.INT instead.");
         }

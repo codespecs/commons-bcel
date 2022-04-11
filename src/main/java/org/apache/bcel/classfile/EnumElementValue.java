@@ -22,17 +22,21 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public class EnumElementValue extends ElementValue
 {
     // For enum types, these two indices point to the type and value
-    private final int typeIdx;
+    private final @NonNegative int typeIdx;
 
-    private final int valueIdx;
+    private final @NonNegative int valueIdx;
 
-    public EnumElementValue(final int type, final int typeIdx, final int valueIdx,
+    public EnumElementValue(final int type, final @NonNegative int typeIdx, final @NonNegative int valueIdx,
             final ConstantPool cpool)
     {
         super(type, cpool);
@@ -74,12 +78,12 @@ public class EnumElementValue extends ElementValue
         return cu8.getBytes();
     }
 
-    public int getValueIndex()
+    public @NonNegative int getValueIndex()
     {
         return valueIdx;
     }
 
-    public int getTypeIndex()
+    public @NonNegative int getTypeIndex()
     {
         return typeIdx;
     }

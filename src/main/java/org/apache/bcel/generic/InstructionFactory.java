@@ -19,8 +19,10 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signature.qual.ClassGetName;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Instances of this class may be used, e.g., to generate typed
@@ -34,6 +36,7 @@ import org.checkerframework.checker.signature.qual.ClassGetName;
  * @see Const
  * @see InstructionConst
  */
+@AnnotatedFor({"signedness"})
 public class InstructionFactory implements InstructionConstants {
 
     // N.N. These must agree with the order of Constants.T_CHAR through T_LONG
@@ -106,8 +109,8 @@ public class InstructionFactory implements InstructionConstants {
             && kind != Const.INVOKEINTERFACE && kind != Const.INVOKEDYNAMIC) {
             throw new IllegalArgumentException("Unknown invoke kind: " + kind);
         }
-        int index;
-        int nargs = 0;
+        @NonNegative int index;
+        @NonNegative int nargs = 0;
         final String signature = Type.getMethodSignature(ret_type, arg_types);
         for (final Type arg_type : arg_types) {
             nargs += arg_type.getSize();
@@ -146,10 +149,10 @@ public class InstructionFactory implements InstructionConstants {
  * createInvokeDynamic only needed if instrumention code wants to generate
  * a new invokedynamic instruction.  I don't think we need.  (markro)
  *
-    public InvokeInstruction createInvokeDynamic( int bootstrap_index, String name, Type ret_type,
+    public InvokeInstruction createInvokeDynamic( @NonNegative int bootstrap_index, String name, Type ret_type,
             Type[] arg_types) {
-        int index;
-        int nargs = 0;
+        @NonNegative int index;
+        @NonNegative int nargs = 0;
         String signature = Type.getMethodSignature(ret_type, arg_types);
         for (int i = 0; i < arg_types.length; i++) {
             nargs += arg_types[i].getSize();
@@ -167,8 +170,8 @@ public class InstructionFactory implements InstructionConstants {
      */
     public InstructionList createPrintln( final String s ) {
         final InstructionList il = new InstructionList();
-        final int out = cp.addFieldref("java.lang.System", "out", "Ljava/io/PrintStream;");
-        final int println = cp.addMethodref("java.io.PrintStream", "println", "(Ljava/lang/String;)V");
+        final @NonNegative int out = cp.addFieldref("java.lang.System", "out", "Ljava/io/PrintStream;");
+        final @NonNegative int println = cp.addMethodref("java.io.PrintStream", "println", "(Ljava/lang/String;)V");
         il.append(new GETSTATIC(out));
         il.append(new PUSH(cp, s));
         il.append(new INVOKEVIRTUAL(println));
@@ -294,7 +297,7 @@ public class InstructionFactory implements InstructionConstants {
      * @see Const
      */
     public FieldInstruction createFieldAccess( final String class_name, final String name, final Type type, final short kind ) {
-        int index;
+        @NonNegative int index;
         final String signature = type.getSignature();
         index = cp.addFieldref(class_name, name, signature);
         switch (kind) {
@@ -466,7 +469,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createPop( final int size ) {
+    public static StackInstruction createPop( final @NonNegative int size ) {
         return (size == 2) ? InstructionConst.POP2 : InstructionConst.POP;
     }
 
@@ -474,7 +477,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup( final int size ) {
+    public static StackInstruction createDup( final @NonNegative int size ) {
         return (size == 2) ? InstructionConst.DUP2 : InstructionConst.DUP;
     }
 
@@ -482,7 +485,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup_2( final int size ) {
+    public static StackInstruction createDup_2( final @NonNegative int size ) {
         return (size == 2) ? InstructionConst.DUP2_X2 : InstructionConst.DUP_X2;
     }
 
@@ -490,7 +493,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup_1( final int size ) {
+    public static StackInstruction createDup_1( final @NonNegative int size ) {
         return (size == 2) ? InstructionConst.DUP2_X1 : InstructionConst.DUP_X1;
     }
 
@@ -498,7 +501,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param index index of local variable
      */
-    public static LocalVariableInstruction createStore( final Type type, final int index ) {
+    public static LocalVariableInstruction createStore( final Type type, final @NonNegative int index ) {
         switch (type.getType()) {
             case Const.T_BOOLEAN:
             case Const.T_CHAR:
@@ -524,7 +527,7 @@ public class InstructionFactory implements InstructionConstants {
     /**
      * @param index index of local variable
      */
-    public static LocalVariableInstruction createLoad( final Type type, final int index ) {
+    public static LocalVariableInstruction createLoad( final Type type, final @NonNegative int index ) {
         switch (type.getType()) {
             case Const.T_BOOLEAN:
             case Const.T_CHAR:
@@ -686,7 +689,7 @@ public class InstructionFactory implements InstructionConstants {
     /** Create new array of given size and type.
      * @return an instruction that creates the corresponding array at runtime, i.e. is an AllocationInstruction
      */
-    public Instruction createNewArray( final Type t, final short dim ) {
+    public Instruction createNewArray( final Type t, final @NonNegative short dim ) {
         if (dim == 1) {
             if (t instanceof ObjectType) {
                 return new ANEWARRAY(cp.addClass((ObjectType) t));

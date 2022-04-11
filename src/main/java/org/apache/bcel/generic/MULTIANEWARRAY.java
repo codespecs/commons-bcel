@@ -24,15 +24,19 @@ import org.apache.bcel.ExceptionConst;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * MULTIANEWARRAY - Create new mutidimensional array of references
  * <PRE>Stack: ..., count1, [count2, ...] -&gt; ..., arrayref</PRE>
  *
  */
+@AnnotatedFor({"signedness"})
 public class MULTIANEWARRAY extends CPInstruction implements LoadClass, AllocationInstruction,
         ExceptionThrower {
 
-    private short dimensions;
+    private @NonNegative short dimensions;
 
 
     /**
@@ -43,7 +47,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     }
 
 
-    public MULTIANEWARRAY(final int index, final short dimensions) {
+    public MULTIANEWARRAY(final @NonNegative int index, final @NonNegative short dimensions) {
         super(org.apache.bcel.Const.MULTIANEWARRAY, index);
         if (dimensions < 1) {
             throw new ClassGenException("Invalid dimensions value: " + dimensions);
@@ -79,7 +83,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * @return number of dimensions to be created
      */
-    public final short getDimensions() {
+    public final @NonNegative short getDimensions() {
         return dimensions;
     }
 
@@ -108,7 +112,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
      * @return Number of words consumed from stack by this instruction
      */
     @Override
-    public int consumeStack( final ConstantPoolGen cpg ) {
+    public @NonNegative int consumeStack( final ConstantPoolGen cpg ) {
         return dimensions;
     }
 

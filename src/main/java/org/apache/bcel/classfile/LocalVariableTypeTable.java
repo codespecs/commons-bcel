@@ -23,7 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 // The new table is used when generic types are about...
 
@@ -56,6 +58,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public class LocalVariableTypeTable extends Attribute {
 
     private LocalVariable[] localVariableTypeTable;        // variables
@@ -64,12 +67,12 @@ public class LocalVariableTypeTable extends Attribute {
         this(c.getNameIndex(), c.getLength(), c.getLocalVariableTypeTable(), c.getConstantPool());
     }
 
-    public LocalVariableTypeTable(final int name_index, final int length, final LocalVariable[] local_variable_table, final ConstantPool constant_pool) {
+    public LocalVariableTypeTable(final @NonNegative int name_index, final @NonNegative int length, final LocalVariable[] local_variable_table, final ConstantPool constant_pool) {
         super(Const.ATTR_LOCAL_VARIABLE_TYPE_TABLE, name_index, length, constant_pool);
         this.localVariableTypeTable = local_variable_table;
     }
 
-    LocalVariableTypeTable(final int nameIdx, final int len, final DataInput input, final ConstantPool cpool) throws IOException {
+    LocalVariableTypeTable(final @NonNegative int nameIdx, final @NonNegative int len, final DataInput input, final ConstantPool cpool) throws IOException {
         this(nameIdx, len, (LocalVariable[]) null, cpool);
 
         final int local_variable_type_table_length = input.readUnsignedShort();
@@ -98,7 +101,7 @@ public class LocalVariableTypeTable extends Attribute {
         return localVariableTypeTable;
     }
 
-    public final @Nullable LocalVariable getLocalVariable(final int index) {
+    public final @Nullable LocalVariable getLocalVariable(final @NonNegative int index) {
         for (final LocalVariable variable : localVariableTypeTable) {
             if (variable.getIndex() == index) {
                 return variable;

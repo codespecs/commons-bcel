@@ -23,7 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * This class is derived from <em>Attribute</em> and denotes that this class
@@ -33,6 +35,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @see     Attribute
  */
+@AnnotatedFor({"signedness"})
 public final class InnerClasses extends Attribute {
 
     private InnerClass[] innerClasses;
@@ -53,7 +56,7 @@ public final class InnerClasses extends Attribute {
      * @param innerClasses array of inner classes attributes
      * @param constant_pool Array of constants
      */
-    public InnerClasses(final int name_index, final int length, final InnerClass @Nullable [] innerClasses,
+    public InnerClasses(final @NonNegative int name_index, final @NonNegative int length, final InnerClass @Nullable [] innerClasses,
             final ConstantPool constant_pool) {
         super(Const.ATTR_INNER_CLASSES, name_index, length, constant_pool);
         this.innerClasses = innerClasses != null ? innerClasses : new InnerClass[0];
@@ -69,7 +72,7 @@ public final class InnerClasses extends Attribute {
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    InnerClasses(final int name_index, final int length, final DataInput input, final ConstantPool constant_pool)
+    InnerClasses(final @NonNegative int name_index, final @NonNegative int length, final DataInput input, final ConstantPool constant_pool)
             throws IOException {
         this(name_index, length, (InnerClass[]) null, constant_pool);
         final int number_of_classes = input.readUnsignedShort();

@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from the abstract {@link Constant}
  * and represents a reference to a method type.
@@ -30,9 +33,10 @@ import org.apache.bcel.Const;
  * @see     Constant
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public final class ConstantMethodType extends Constant {
 
-    private int descriptorIndex;
+    private @NonNegative int descriptorIndex;
 
 
     /**
@@ -54,7 +58,7 @@ public final class ConstantMethodType extends Constant {
     }
 
 
-    public ConstantMethodType(final int descriptor_index) {
+    public ConstantMethodType(final @NonNegative int descriptor_index) {
         super(Const.CONSTANT_MethodType);
         this.descriptorIndex = descriptor_index;
     }
@@ -86,12 +90,12 @@ public final class ConstantMethodType extends Constant {
     }
 
 
-    public int getDescriptorIndex() {
+    public @NonNegative int getDescriptorIndex() {
         return descriptorIndex;
     }
 
 
-    public void setDescriptorIndex(final int descriptor_index) {
+    public void setDescriptorIndex(final @NonNegative int descriptor_index) {
         this.descriptorIndex = descriptor_index;
     }
 

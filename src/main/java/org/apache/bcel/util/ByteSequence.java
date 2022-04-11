@@ -20,6 +20,8 @@ package org.apache.bcel.util;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Utility class that implements a sequence of bytes which can be read
  * via the `readByte()' method. This is used to implement a wrapper for the
@@ -37,7 +39,7 @@ public final class ByteSequence extends DataInputStream {
     }
 
 
-    public int getIndex() {
+    public @NonNegative int getIndex() {
         return byteStream.getPosition();
     }
 
@@ -52,7 +54,7 @@ public final class ByteSequence extends DataInputStream {
             super(bytes);
         }
 
-        int getPosition() {
+        @NonNegative int getPosition() {
             // pos is protected in ByteArrayInputStream
             return pos;
         }

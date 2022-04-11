@@ -24,6 +24,9 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 import org.apache.bcel.Constants;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class represents an entry in the exception table of the <em>Code</em>
  * attribute and is used only there. It contains a range in which a
@@ -31,14 +34,15 @@ import org.apache.bcel.Constants;
  *
  * @see     Code
  */
+@AnnotatedFor({"signedness"})
 public final class CodeException implements Cloneable, Node, Constants {
 
-    private int startPc; // Range in the code the exception handler is
-    private int endPc; // active. startPc is inclusive, endPc exclusive
-    private int handlerPc; /* Starting address of exception handler, i.e.,
+    private @NonNegative int startPc; // Range in the code the exception handler is
+    private @NonNegative int endPc; // active. startPc is inclusive, endPc exclusive
+    private @NonNegative int handlerPc; /* Starting address of exception handler, i.e.,
      * an offset from start of code.
      */
-    private int catchType; /* If this is zero the handler catches any
+    private @NonNegative int catchType; /* If this is zero the handler catches any
      * exception, otherwise it points to the
      * exception class which is to be caught.
      */
@@ -73,7 +77,7 @@ public final class CodeException implements Cloneable, Node, Constants {
      * exception, otherwise it points to the exception class which is
      * to be caught.
      */
-    public CodeException(final int startPc, final int endPc, final int handlerPc, final int catchType) {
+    public CodeException(final @NonNegative int startPc, final @NonNegative int endPc, final @NonNegative int handlerPc, final @NonNegative int catchType) {
         this.startPc = startPc;
         this.endPc = endPc;
         this.handlerPc = handlerPc;
@@ -112,7 +116,7 @@ public final class CodeException implements Cloneable, Node, Constants {
      * @return 0, if the handler catches any exception, otherwise it points to
      * the exception class which is to be caught.
      */
-    public int getCatchType() {
+    public @NonNegative int getCatchType() {
         return catchType;
     }
 
@@ -120,7 +124,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Exclusive end index of the region where the handler is active.
      */
-    public int getEndPC() {
+    public @NonNegative int getEndPC() {
         return endPc;
     }
 
@@ -128,7 +132,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Starting address of exception handler, relative to the code.
      */
-    public int getHandlerPC() {
+    public @NonNegative int getHandlerPC() {
         return handlerPc;
     }
 
@@ -136,7 +140,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Inclusive start index of the region where the handler is active.
      */
-    public int getStartPC() {
+    public @NonNegative int getStartPC() {
         return startPc;
     }
 
@@ -144,7 +148,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @param catchType the type of exception that is caught
      */
-    public void setCatchType( final int catchType ) {
+    public void setCatchType( final @NonNegative int catchType ) {
         this.catchType = catchType;
     }
 
@@ -152,7 +156,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @param endPc end of handled block
      */
-    public void setEndPC( final int endPc ) {
+    public void setEndPC( final @NonNegative int endPc ) {
         this.endPc = endPc;
     }
 
@@ -160,7 +164,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @param handlerPc where the actual code is
      */
-    public void setHandlerPC( final int handlerPc ) { // TODO unused
+    public void setHandlerPC( final @NonNegative int handlerPc ) { // TODO unused
         this.handlerPc = handlerPc;
     }
 
@@ -168,7 +172,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @param startPc start of handled block
      */
-    public void setStartPC( final int startPc ) { // TODO unused
+    public void setStartPC( final @NonNegative int startPc ) { // TODO unused
         this.startPc = startPc;
     }
 

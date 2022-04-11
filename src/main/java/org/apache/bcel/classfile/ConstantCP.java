@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * Abstract super class for Fieldref, Methodref, InterfaceMethodref and
  *                          InvokeDynamic constants.
@@ -32,6 +35,7 @@ import org.apache.bcel.Const;
  * @see     ConstantInterfaceMethodref
  * @see     ConstantInvokeDynamic
  */
+@AnnotatedFor({"signedness"})
 public abstract class ConstantCP extends Constant {
 
     /** References to the constants containing the class and the field signature
@@ -42,14 +46,14 @@ public abstract class ConstantCP extends Constant {
      * @deprecated (since 6.0) will be made private; do not access directly, use getter/setter
      */
     @java.lang.Deprecated
-    protected int class_index; // TODO make private (has getter & setter)
+    protected @NonNegative int class_index; // TODO make private (has getter & setter)
     // This field has the same meaning for all subclasses.
 
     /**
      * @deprecated (since 6.0) will be made private; do not access directly, use getter/setter
      */
     @java.lang.Deprecated
-    protected int name_and_type_index; // TODO make private (has getter & setter)
+    protected @NonNegative int name_and_type_index; // TODO make private (has getter & setter)
 
 
     /**
@@ -76,7 +80,7 @@ public abstract class ConstantCP extends Constant {
      * @param class_index Reference to the class containing the field
      * @param name_and_type_index and the field signature
      */
-    protected ConstantCP(final byte tag, final int class_index, final int name_and_type_index) {
+    protected ConstantCP(final byte tag, final @NonNegative int class_index, final @NonNegative int name_and_type_index) {
         super(tag);
         this.class_index = class_index;
         this.name_and_type_index = name_and_type_index;
@@ -100,7 +104,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return Reference (index) to class this constant refers to.
      */
-    public final int getClassIndex() {
+    public final @NonNegative int getClassIndex() {
         return class_index;
     }
 
@@ -108,7 +112,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @param class_index points to Constant_class
      */
-    public final void setClassIndex( final int class_index ) {
+    public final void setClassIndex( final @NonNegative int class_index ) {
         this.class_index = class_index;
     }
 
@@ -116,7 +120,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return Reference (index) to signature of the field.
      */
-    public final int getNameAndTypeIndex() {
+    public final @NonNegative int getNameAndTypeIndex() {
         return name_and_type_index;
     }
 
@@ -124,7 +128,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @param name_and_type_index points to Constant_NameAndType
      */
-    public final void setNameAndTypeIndex( final int name_and_type_index ) {
+    public final void setNameAndTypeIndex( final @NonNegative int name_and_type_index ) {
         this.name_and_type_index = name_and_type_index;
     }
 

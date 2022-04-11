@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class represents a inner class attribute, i.e., the class
  * indices of the inner and outer classes, the name and the attributes
@@ -30,11 +33,12 @@ import org.apache.bcel.Const;
  *
  * @see InnerClasses
  */
+@AnnotatedFor({"signedness"})
 public final class InnerClass implements Cloneable, Node {
 
-    private int innerClassIndex;
-    private int outerClassIndex;
-    private int innerNameIndex;
+    private @NonNegative int innerClassIndex;
+    private @NonNegative int outerClassIndex;
+    private @NonNegative int innerNameIndex;
     private int innerAccessFlags;
 
 
@@ -64,7 +68,7 @@ public final class InnerClass implements Cloneable, Node {
      * @param innerNameIndex  Name index in constant pool of inner class
      * @param innerAccessFlags Access flags of inner class
      */
-    public InnerClass(final int innerClassIndex, final int outerClassIndex, final int innerNameIndex,
+    public InnerClass(final @NonNegative int innerClassIndex, final @NonNegative int outerClassIndex, final @NonNegative int innerNameIndex,
             final int innerAccessFlags) {
         this.innerClassIndex = innerClassIndex;
         this.outerClassIndex = outerClassIndex;
@@ -111,7 +115,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @return class index of inner class.
      */
-    public int getInnerClassIndex() {
+    public @NonNegative int getInnerClassIndex() {
         return innerClassIndex;
     }
 
@@ -119,7 +123,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @return name index of inner class.
      */
-    public int getInnerNameIndex() {
+    public @NonNegative int getInnerNameIndex() {
         return innerNameIndex;
     }
 
@@ -127,7 +131,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @return class index of outer class.
      */
-    public int getOuterClassIndex() {
+    public @NonNegative int getOuterClassIndex() {
         return outerClassIndex;
     }
 
@@ -143,7 +147,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @param innerClassIndex index into the constant pool for this class
      */
-    public void setInnerClassIndex( final int innerClassIndex ) {
+    public void setInnerClassIndex( final @NonNegative int innerClassIndex ) {
         this.innerClassIndex = innerClassIndex;
     }
 
@@ -151,7 +155,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @param innerNameIndex index into the constant pool for this class's name
      */
-    public void setInnerNameIndex( final int innerNameIndex ) { // TODO unused
+    public void setInnerNameIndex( final @NonNegative int innerNameIndex ) { // TODO unused
         this.innerNameIndex = innerNameIndex;
     }
 
@@ -159,7 +163,7 @@ public final class InnerClass implements Cloneable, Node {
     /**
      * @param outerClassIndex index into the constant pool for the owning class
      */
-    public void setOuterClassIndex( final int outerClassIndex ) { // TODO unused
+    public void setOuterClassIndex( final @NonNegative int outerClassIndex ) { // TODO unused
         this.outerClassIndex = outerClassIndex;
     }
 

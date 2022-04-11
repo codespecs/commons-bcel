@@ -22,6 +22,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from the abstract {@link Constant}
  * and represents a reference to a invoke dynamic.
@@ -31,6 +34,7 @@ import org.apache.bcel.Const;
  * The CONSTANT_InvokeDynamic_info Structure in The Java Virtual Machine Specification</a>
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public final class ConstantInvokeDynamic extends ConstantCP {
 
     /**
@@ -52,7 +56,7 @@ public final class ConstantInvokeDynamic extends ConstantCP {
     }
 
 
-    public ConstantInvokeDynamic(final int bootstrap_method_attr_index, final int name_and_type_index) {
+    public ConstantInvokeDynamic(final @NonNegative int bootstrap_method_attr_index, final @NonNegative int name_and_type_index) {
         super(Const.CONSTANT_InvokeDynamic, bootstrap_method_attr_index, name_and_type_index);
     }
 
@@ -76,7 +80,7 @@ public final class ConstantInvokeDynamic extends ConstantCP {
      * for use by ConstantInvokeDynamic.
      * @since 6.0
      */
-    public int getBootstrapMethodAttrIndex() {
+    public @NonNegative int getBootstrapMethodAttrIndex() {
         return super.getClassIndex();  // AKA bootstrap_method_attr_index
     }
 

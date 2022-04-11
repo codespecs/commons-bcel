@@ -38,6 +38,8 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.SourceFile;
 import org.apache.bcel.classfile.Utility;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Convert found attributes into HTML file.
  *
@@ -47,7 +49,7 @@ final class AttributeHTML {
 
     private final String class_name; // name of current class
     private final PrintWriter file; // file to write to
-    private int attr_count = 0;
+    private @NonNegative int attr_count = 0;
     private final ConstantHTML constant_html;
     private final ConstantPool constant_pool;
 
@@ -62,7 +64,7 @@ final class AttributeHTML {
     }
 
 
-    private String codeLink( final int link, final int method_number ) {
+    private String codeLink( final int link, final @NonNegative int method_number ) {
         return "<A HREF=\"" + class_name + "_code.html#code" + method_number + "@" + link
                 + "\" TARGET=Code>" + link + "</A>";
     }
@@ -79,9 +81,9 @@ final class AttributeHTML {
     }
 
 
-    void writeAttribute( final Attribute attribute, final String anchor, final int method_number ) {
+    void writeAttribute( final Attribute attribute, final String anchor, final @NonNegative int method_number ) {
         final byte tag = attribute.getTag();
-        int index;
+        @NonNegative int index;
         if (tag == Const.ATTR_UNKNOWN) {
             return;
         }

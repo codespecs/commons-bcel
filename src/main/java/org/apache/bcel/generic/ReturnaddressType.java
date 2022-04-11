@@ -29,6 +29,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  */
 public class ReturnaddressType extends Type {
 
+    @SuppressWarnings("interning:cast.unsafe")
     public static final @InternedDistinct ReturnaddressType NO_TARGET = new @InternedDistinct ReturnaddressType();
     private InstructionHandle returnTarget;
 

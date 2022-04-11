@@ -37,11 +37,12 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
 /**
  * Convert code into HTML file.
@@ -89,8 +90,8 @@ final class CodeHTML {
         int default_offset = 0;
         int low;
         int high;
-        int index;
-        int class_index;
+        @NonNegative int index;
+        @NonNegative int class_index;
         int vindex;
         int constant;
         int[] jump_table;

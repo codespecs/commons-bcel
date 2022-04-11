@@ -33,6 +33,8 @@ import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Convert constant pool into HTML file.
  *
@@ -77,15 +79,15 @@ final class ConstantHTML {
     }
 
 
-    String referenceConstant( final int index ) {
+    String referenceConstant( final @NonNegative int index ) {
         return constantRef[index];
     }
 
 
-    private void writeConstant( final int index ) {
+    private void writeConstant( final @NonNegative int index ) {
         final byte tag = constants[index].getTag();
-        int class_index;
-        int name_index;
+        @NonNegative int class_index;
+        @NonNegative int name_index;
         String ref;
         // The header is always the same
         file.println("<H4> <A NAME=cp" + index + ">" + index + "</A> " + Const.getConstantName(tag)

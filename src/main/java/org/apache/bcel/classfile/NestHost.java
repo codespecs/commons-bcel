@@ -23,6 +23,9 @@ import java.io.IOException;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class is derived from <em>Attribute</em> and records the nest host of the nest
  * to which the current class or interface claims to belong.
@@ -30,9 +33,10 @@ import org.apache.bcel.Const;
  *
  * @see     Attribute
  */
+@AnnotatedFor({"signedness"})
 public final class NestHost extends Attribute {
 
-    private int hostClassIndex;
+    private @NonNegative int hostClassIndex;
 
 
     /**
@@ -50,7 +54,7 @@ public final class NestHost extends Attribute {
      * @param hostClassIndex Host class index
      * @param constantPool Array of constants
      */
-    public NestHost(final int nameIndex, final int length, final int hostClassIndex,
+    public NestHost(final @NonNegative int nameIndex, final @NonNegative int length, final @NonNegative int hostClassIndex,
             final ConstantPool constantPool) {
         super(Const.ATTR_NEST_MEMBERS, nameIndex, length, constantPool);
         this.hostClassIndex = hostClassIndex;
@@ -65,7 +69,7 @@ public final class NestHost extends Attribute {
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    NestHost(final int name_index, final int length, final DataInput input, final ConstantPool constant_pool) throws IOException {
+    NestHost(final @NonNegative int name_index, final @NonNegative int length, final DataInput input, final ConstantPool constant_pool) throws IOException {
         this(name_index, length, 0, constant_pool);
         hostClassIndex = input.readUnsignedShort();
     }
@@ -100,7 +104,7 @@ public final class NestHost extends Attribute {
     /**
      * @return index into constant pool of host class name.
      */
-    public int getHostClassIndex() {
+    public @NonNegative int getHostClassIndex() {
         return hostClassIndex;
     }
 
@@ -108,7 +112,7 @@ public final class NestHost extends Attribute {
     /**
      * @param hostClassIndex the host class index
      */
-    public void setHostClassIndex( final int hostClassIndex ) {
+    public void setHostClassIndex( final @NonNegative int hostClassIndex ) {
         this.hostClassIndex = hostClassIndex;
     }
 

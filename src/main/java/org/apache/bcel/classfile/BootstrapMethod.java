@@ -24,6 +24,9 @@ import java.util.Arrays;
 
 import org.apache.bcel.Const;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class represents a bootstrap method attribute, i.e., the bootstrap
  * method ref, the number of bootstrap arguments and an array of the
@@ -33,10 +36,11 @@ import org.apache.bcel.Const;
  * The class File Format : The BootstrapMethods Attribute</a>
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public class BootstrapMethod implements Cloneable {
 
     /** Index of the CONSTANT_MethodHandle_info structure in the constant_pool table */
-    private int bootstrapMethodRef;
+    private @NonNegative int bootstrapMethodRef;
 
     /** Array of references to the constant_pool table */
     private int[] bootstrapArguments;
@@ -64,7 +68,7 @@ public class BootstrapMethod implements Cloneable {
     }
 
     // helper method
-    private BootstrapMethod(final int bootstrap_method_ref, final int num_bootstrap_arguments) {
+    private BootstrapMethod(final @NonNegative int bootstrap_method_ref, final int num_bootstrap_arguments) {
         this(bootstrap_method_ref, new int[num_bootstrap_arguments]);
     }
 
@@ -72,7 +76,7 @@ public class BootstrapMethod implements Cloneable {
      * @param bootstrapMethodRef int index into constant_pool of CONSTANT_MethodHandle
      * @param bootstrapArguments int[] indices into constant_pool of CONSTANT_[type]_info
      */
-    public BootstrapMethod(final int bootstrapMethodRef, final int[] bootstrapArguments) {
+    public BootstrapMethod(final @NonNegative int bootstrapMethodRef, final int[] bootstrapArguments) {
         this.bootstrapMethodRef = bootstrapMethodRef;
         this.bootstrapArguments = bootstrapArguments;
     }
@@ -80,14 +84,14 @@ public class BootstrapMethod implements Cloneable {
     /**
      * @return index into constant_pool of bootstrap_method
      */
-    public int getBootstrapMethodRef() {
+    public @NonNegative int getBootstrapMethodRef() {
         return bootstrapMethodRef;
     }
 
     /**
      * @param bootstrapMethodRef int index into constant_pool of CONSTANT_MethodHandle
      */
-    public void setBootstrapMethodRef(final int bootstrapMethodRef) {
+    public void setBootstrapMethodRef(final @NonNegative int bootstrapMethodRef) {
         this.bootstrapMethodRef = bootstrapMethodRef;
     }
 
@@ -101,7 +105,7 @@ public class BootstrapMethod implements Cloneable {
     /**
      * @return count of number of boostrap arguments
      */
-    public int getNumBootstrapArguments() {
+    public @NonNegative int getNumBootstrapArguments() {
         return bootstrapArguments.length;
     }
 

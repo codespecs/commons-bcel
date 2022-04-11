@@ -21,11 +21,15 @@ import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * base class for annotations
  *
  * @since 6.0
  */
+@AnnotatedFor({"signedness"})
 public abstract class Annotations extends Attribute {
 
     private AnnotationEntry[] annotationTable;
@@ -38,7 +42,7 @@ public abstract class Annotations extends Attribute {
      * @param input Input stream
      * @param constant_pool Array of constants
      */
-    Annotations(final byte annotation_type, final int name_index, final int length, final DataInput input,
+    Annotations(final byte annotation_type, final @NonNegative int name_index, final @NonNegative int length, final DataInput input,
             final ConstantPool constant_pool, final boolean isRuntimeVisible) throws IOException {
         this(annotation_type, name_index, length, (AnnotationEntry[]) null, constant_pool, isRuntimeVisible);
         final int annotation_table_length = input.readUnsignedShort();
@@ -55,7 +59,7 @@ public abstract class Annotations extends Attribute {
      * @param annotationTable the actual annotations
      * @param constantPool Array of constants
      */
-    public Annotations(final byte annotationType, final int nameIndex, final int length, final AnnotationEntry[] annotationTable,
+    public Annotations(final byte annotationType, final @NonNegative int nameIndex, final @NonNegative int length, final AnnotationEntry[] annotationTable,
             final ConstantPool constantPool, final boolean isRuntimeVisible) {
         super(annotationType, nameIndex, length, constantPool);
         this.annotationTable = annotationTable;
@@ -90,7 +94,7 @@ public abstract class Annotations extends Attribute {
     /**
      * @return the number of annotation entries in this annotation
      */
-    public final int getNumAnnotations() {
+    public final @NonNegative int getNumAnnotations() {
         if (annotationTable == null) {
             return 0;
         }
