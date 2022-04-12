@@ -34,12 +34,14 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Convert constant pool into HTML file.
  *
  *
  */
+@AnnotatedFor({"signedness"})
 final class ConstantHTML {
 
     private final String className; // name of current class

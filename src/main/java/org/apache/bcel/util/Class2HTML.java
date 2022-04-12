@@ -34,6 +34,7 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Read class file(s) and convert them into HTML files.
@@ -55,6 +56,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * the Code frame.
  *
  */
+@AnnotatedFor({"signedness"})
 public class Class2HTML implements Constants {
 
     private final JavaClass java_class; // current class object

@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Utility class that implements a sequence of bytes which can be read
@@ -28,6 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * Java byte code stream to gain some more readability.
  *
  */
+@AnnotatedFor({"signedness"})
 public final class ByteSequence extends DataInputStream {
 
     private final ByteArrayStream byteStream;
