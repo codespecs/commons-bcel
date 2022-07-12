@@ -17,6 +17,11 @@
  */
 package org.apache.bcel.classfile;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -42,9 +47,10 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * further details about the structure of a bytecode file.
  *
  */
+@InheritableMustCall("parse")
 public final class ClassParser {
 
-    private DataInputStream dataInputStream;
+    private @Owning DataInputStream dataInputStream;
     private final boolean fileOwned;
     private final String fileName;
     private String zipFile;
@@ -68,7 +74,7 @@ public final class ClassParser {
      * @param inputStream Input stream
      * @param fileName File name
      */
-    public ClassParser(final InputStream inputStream, final String fileName) {
+    public ClassParser(final @Owning InputStream inputStream, final String fileName) {
         this.fileName = fileName;
         fileOwned = false;
         final String clazz = inputStream.getClass().getName(); // Not a very clean solution ...
@@ -116,6 +122,7 @@ public final class ClassParser {
      * @throws  IOException
      * @throws  ClassFormatException
      */
+    @EnsuresCalledMethods(value="dataInputStream", methods="close")
     public JavaClass parse() throws IOException, ClassFormatException {
         ZipFile zip = null;
         try {

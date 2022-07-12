@@ -41,7 +41,7 @@
   <inceptionYear>2004</inceptionYear>
 
   <properties>
-    <checkerFrameworkVersion>3.21.4</checkerFrameworkVersion>
+    <checkerFrameworkVersion>3.23.0</checkerFrameworkVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -530,6 +530,7 @@
                 <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
                 <annotationProcessor>org.checkerframework.checker.signature.SignatureChecker</annotationProcessor>
                 <annotationProcessor>org.checkerframework.checker.signedness.SignednessChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.resourceleak.ResourceLeakChecker</annotationProcessor>
               </annotationProcessors>
               <compilerArgs>
                 <!-- -AuseDefaultsForUncheckedCode=source causes compilation errors in
