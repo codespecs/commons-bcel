@@ -98,3 +98,23 @@ mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/stagin
 #  * Click "close" at the top.
 #  * Click "refresh" at the top until the bottom pane has "Repositery closed"
 #  * Click "release" at the top (make sure the "automatically drop" box is checked)
+
+
+To use a locally-built version of the Checker Framework
+-------------------------------------------------------
+Go to your checker-framework enlistment and (after building) run:
+
+./gradlew publishToMavenLocal
+
+Then run:
+
+./gradlew version
+
+Now, go back to the project that uses the Checker Framework and
+run mvn with your normal arguments but add:
+
+-DcheckerFrameworkVersion=<result of the version command above>
+
+For example:
+
+-DcheckerFrameworkVersion=3.21.4-SNAPSHOT
