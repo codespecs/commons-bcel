@@ -1587,15 +1587,15 @@ public abstract class Utility {
         }
 
 
-/* unused
         @Override
         public int read( final char[] cbuf, final int off, final int len ) throws IOException {
             for (int i = 0; i < len; i++) {
-                cbuf[off + i] = (char) read();
+                @SuppressWarnings("signedness:cast.unsafe") // result of read() is range x'00' to x'ff'
+                char temp = (char)read();
+                cbuf[off + i] = temp;
             }
             return len;
         }
- */
     }
 
     /**
@@ -1629,7 +1629,6 @@ public abstract class Utility {
         }
 
 
-/* unused
         @Override
         public void write( final char[] cbuf, final int off, final int len ) throws IOException {
             for (int i = 0; i < len; i++) {
@@ -1642,7 +1641,6 @@ public abstract class Utility {
         public void write( final String str, final int off, final int len ) throws IOException {
             write(str.toCharArray(), off, len);
         }
- */
     }
 
 
