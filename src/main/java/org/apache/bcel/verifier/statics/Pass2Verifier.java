@@ -1467,7 +1467,16 @@ public final class Pass2Verifier extends PassVerifier implements Constants {
      * Conforming to: The Java Virtual Machine Specification, Second Edition, �2.7, �2.7.1, �2.2.
      */
     private static boolean validJavaLangMethodName(final String name) {
-        return validJavaIdentifier(name);
+        if (!Character.isJavaIdentifierStart(name.charAt(0))) {
+            return false;
+        }
+
+        for (int i=1; i<name.length(); i++) {
+            if (!Character.isJavaIdentifierPart(name.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -1485,7 +1494,7 @@ public final class Pass2Verifier extends PassVerifier implements Constants {
 
     /**
      * This method returns true if and only if the supplied String
-     * represents a valid Java identifier (so-called simple or unqualified name).
+     * represents a valid Java identifier (so-called simple name).
      */
     private static boolean validJavaIdentifier(final String name) {
         if  (name.length() == 0) {
