@@ -37,6 +37,7 @@ import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.ConstantUtf8;
 
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.FieldDescriptor;
@@ -249,7 +250,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param str String to search for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupString( final String str ) {
+    public @GTENegativeOne int lookupString( final String str ) {
         final Index index = stringTable.get(str);
         return (index != null) ? index.index : -1;
     }
@@ -262,7 +263,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addString( final String str ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupString(str)) != -1) {
             return ret; // Already in CP
         }
@@ -286,14 +287,14 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param str String to search for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupClass( final String str ) {
+    public @GTENegativeOne int lookupClass( final String str ) {
         final Index index = classTable.get(str.replace('.', '/'));
         return (index != null) ? index.index : -1;
     }
 
 
     private @NonNegative int addClass_( final String clazz ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupClass(clazz)) != -1) {
             return ret; // Already in CP
         }
