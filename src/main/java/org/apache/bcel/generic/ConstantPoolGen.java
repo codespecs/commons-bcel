@@ -349,7 +349,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param n integer number to look for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupInteger( final int n ) {
+    public @GTENegativeOne int lookupInteger( final int n ) {
         for (int i = 1; i < index; i++) {
             if (constants[i] instanceof ConstantInteger) {
                 final ConstantInteger c = (ConstantInteger) constants[i];
@@ -369,7 +369,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addInteger( final int n ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupInteger(n)) != -1) {
             return ret; // Already in CP
         }
@@ -386,7 +386,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param n Float number to look for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupFloat( final float n ) {
+    public @GTENegativeOne int lookupFloat( final float n ) {
         final int bits = Float.floatToIntBits(n);
         for (int i = 1; i < index; i++) {
             if (constants[i] instanceof ConstantFloat) {
@@ -407,7 +407,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addFloat( final float n ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupFloat(n)) != -1) {
             return ret; // Already in CP
         }
@@ -426,7 +426,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param n Utf8 string to look for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupUtf8( final String n ) {
+    public @GTENegativeOne int lookupUtf8( final String n ) {
         final Index index = utf8Table.get(n);
         return (index != null) ? index.index : -1;
     }
@@ -439,7 +439,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addUtf8( final String n ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupUtf8(n)) != -1) {
             return ret; // Already in CP
         }
@@ -459,7 +459,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param n Long number to look for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupLong( final long n ) {
+    public @GTENegativeOne int lookupLong( final long n ) {
         for (int i = 1; i < index; i++) {
             if (constants[i] instanceof ConstantLong) {
                 final ConstantLong c = (ConstantLong) constants[i];
@@ -479,7 +479,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addLong( final long n ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupLong(n)) != -1) {
             return ret; // Already in CP
         }
@@ -497,7 +497,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param n Double number to look for
      * @return index on success, -1 otherwise
      */
-    public @NonNegative int lookupDouble( final double n ) {
+    public @GTENegativeOne int lookupDouble( final double n ) {
         final long bits = Double.doubleToLongBits(n);
         for (int i = 1; i < index; i++) {
             if (constants[i] instanceof ConstantDouble) {
@@ -518,7 +518,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addDouble( final double n ) {
-        @NonNegative int ret;
+        int ret;
         if ((ret = lookupDouble(n)) != -1) {
             return ret; // Already in CP
         }
@@ -539,7 +539,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param signature of variable/method
      * @return index on success, -1 otherwise
      */
-    public int lookupNameAndType( final String name, final String signature ) {
+    public @GTENegativeOne int lookupNameAndType( final String name, final String signature ) {
         final Index _index = natTable.get(name + NAT_DELIM + signature);
         return (_index != null) ? _index.index : -1;
     }
@@ -554,9 +554,9 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addNameAndType( final String name, final String signature ) {
-        @NonNegative int ret;
-        @NonNegative int name_index;
-        @NonNegative int signature_index;
+        int ret;
+        int name_index;
+        int signature_index;
         if ((ret = lookupNameAndType(name, signature)) != -1) {
             return ret; // Already in CP
         }
@@ -583,14 +583,14 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param signature return and argument types
      * @return index on success, -1 otherwise
      */
-    public int lookupMethodref( final String class_name, final String method_name, final String signature ) {
+    public @GTENegativeOne int lookupMethodref( final String class_name, final String method_name, final String signature ) {
         final Index index = cpTable.get(class_name + METHODREF_DELIM + method_name
                 + METHODREF_DELIM + signature);
         return (index != null) ? index.index : -1;
     }
 
 
-    public int lookupMethodref( final MethodGen method ) {
+    public @GTENegativeOne int lookupMethodref( final MethodGen method ) {
         return lookupMethodref(method.getClassName(), method.getName(), method.getSignature());
     }
 
@@ -605,9 +605,9 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addMethodref( final String class_name, final String method_name, final String signature ) {
-        @NonNegative int ret;
-        @NonNegative int class_index;
-        @NonNegative int name_and_type_index;
+        int ret;
+        int class_index;
+        int name_and_type_index;
         if ((ret = lookupMethodref(class_name, method_name, signature)) != -1) {
             return ret; // Already in CP
         }
@@ -624,7 +624,7 @@ public @UsesObjectEquals class ConstantPoolGen {
     }
 
 
-    public int addMethodref( final MethodGen method ) {
+    public @NonNegative int addMethodref( final MethodGen method ) {
         return addMethodref(method.getClassName(), method.getName(), method.getSignature());
     }
 
@@ -637,14 +637,14 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param signature return and argument types
      * @return index on success, -1 otherwise
      */
-    public int lookupInterfaceMethodref( final String class_name, final String method_name, final String signature ) {
+    public @GTENegativeOne int lookupInterfaceMethodref( final String class_name, final String method_name, final String signature ) {
         final Index index = cpTable.get(class_name + IMETHODREF_DELIM + method_name
                 + IMETHODREF_DELIM + signature);
         return (index != null) ? index.index : -1;
     }
 
 
-    public int lookupInterfaceMethodref( final MethodGen method ) {
+    public @GTENegativeOne int lookupInterfaceMethodref( final MethodGen method ) {
         return lookupInterfaceMethodref(method.getClassName(), method.getName(), method
                 .getSignature());
     }
@@ -660,9 +660,9 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addInterfaceMethodref( final String class_name, final String method_name, final String signature ) {
-        @NonNegative int ret;
-        @NonNegative int class_index;
-        @NonNegative int name_and_type_index;
+        int ret;
+        int class_index;
+        int name_and_type_index;
         if ((ret = lookupInterfaceMethodref(class_name, method_name, signature)) != -1) {
             return ret; // Already in CP
         }
@@ -679,7 +679,7 @@ public @UsesObjectEquals class ConstantPoolGen {
     }
 
 
-    public int addInterfaceMethodref( final MethodGen method ) {
+    public @NonNegative int addInterfaceMethodref( final MethodGen method ) {
         return addInterfaceMethodref(method.getClassName(), method.getName(), method.getSignature());
     }
 
@@ -692,7 +692,7 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @param signature return and argument types
      * @return index on success, -1 otherwise
      */
-    public int lookupFieldref( final String class_name, final String field_name, final String signature ) {
+    public @GTENegativeOne int lookupFieldref( final String class_name, final String field_name, final String signature ) {
         final Index index = cpTable.get(class_name + FIELDREF_DELIM + field_name
                 + FIELDREF_DELIM + signature);
         return (index != null) ? index.index : -1;
@@ -709,9 +709,9 @@ public @UsesObjectEquals class ConstantPoolGen {
      * @return index of entry
      */
     public @NonNegative int addFieldref( final @FullyQualifiedName String class_name, final String field_name, final @FieldDescriptor String signature ) {
-        @NonNegative int ret;
-        @NonNegative int class_index;
-        @NonNegative int name_and_type_index;
+        int ret;
+        int class_index;
+        int name_and_type_index;
         if ((ret = lookupFieldref(class_name, field_name, signature)) != -1) {
             return ret; // Already in CP
         }
