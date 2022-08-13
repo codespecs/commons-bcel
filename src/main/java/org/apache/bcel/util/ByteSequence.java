@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -41,6 +42,7 @@ public final class ByteSequence extends DataInputStream {
     }
 
 
+    @Pure
     public @NonNegative int getIndex() {
         return byteStream.getPosition();
     }

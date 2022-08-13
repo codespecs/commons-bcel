@@ -17,9 +17,9 @@
  */
 package org.apache.bcel.verifier.structurals;
 
-
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * This class represents a JVM execution frame; that means,
@@ -85,6 +85,7 @@ public class Frame{
     /**
      *
      */
+    @Pure
     public LocalVariables getLocals() {
         return locals;
     }
@@ -92,6 +93,7 @@ public class Frame{
     /**
      *
      */
+    @Pure
     public OperandStack getStack() {
         return stack;
     }
@@ -129,6 +131,7 @@ public class Frame{
      * @return the _this
      * @since 6.0
      */
+    @Pure
     public static UninitializedObjectType getThis() {
         return _this;
     }

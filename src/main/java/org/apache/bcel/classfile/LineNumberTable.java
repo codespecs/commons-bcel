@@ -26,6 +26,7 @@ import org.apache.bcel.Const;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.signedness.qual.SignedPositive;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -116,6 +117,7 @@ public final class LineNumberTable extends Attribute {
     /**
      * @return Array of (pc offset, line number) pairs.
      */
+    @Pure
     public LineNumber[] getLineNumberTable() {
         return lineNumberTable;
     }
@@ -215,6 +217,7 @@ public final class LineNumberTable extends Attribute {
     }
 
 
+    @Pure
     public @NonNegative int getTableLength() {
         return lineNumberTable == null ? 0 : lineNumberTable.length;
     }

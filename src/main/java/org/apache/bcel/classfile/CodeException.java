@@ -25,6 +25,7 @@ import org.apache.bcel.Const;
 import org.apache.bcel.Constants;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -116,6 +117,7 @@ public final class CodeException implements Cloneable, Node, Constants {
      * @return 0, if the handler catches any exception, otherwise it points to
      * the exception class which is to be caught.
      */
+    @Pure
     public @NonNegative int getCatchType() {
         return catchType;
     }
@@ -124,6 +126,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Exclusive end index of the region where the handler is active.
      */
+    @Pure
     public @NonNegative int getEndPC() {
         return endPc;
     }
@@ -132,6 +135,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Starting address of exception handler, relative to the code.
      */
+    @Pure
     public @NonNegative int getHandlerPC() {
         return handlerPc;
     }
@@ -140,6 +144,7 @@ public final class CodeException implements Cloneable, Node, Constants {
     /**
      * @return Inclusive start index of the region where the handler is active.
      */
+    @Pure
     public @NonNegative int getStartPC() {
         return startPc;
     }

@@ -25,6 +25,7 @@ import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -199,6 +200,7 @@ public final class Code extends Attribute {
     /**
      * @return Actual byte code of the method.
      */
+    @Pure
     public byte[] getCode() {
         return code;
     }
@@ -216,6 +218,7 @@ public final class Code extends Attribute {
     /**
      * @return Number of local variables.
      */
+    @Pure
     public @NonNegative int getMaxLocals() {
         return maxLocals;
     }
@@ -224,6 +227,7 @@ public final class Code extends Attribute {
     /**
      * @return Maximum size of stack used by this method.
      */
+    @Pure
     public @NonNegative int getMaxStack() {
         return maxStack;
     }

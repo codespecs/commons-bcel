@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -48,6 +49,7 @@ public class MethodParameters extends Attribute {
         }
     }
 
+    @Pure
     public MethodParameter[] getParameters() {
         return parameters;
     }

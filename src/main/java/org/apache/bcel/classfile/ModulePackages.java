@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -110,6 +111,7 @@ public final class ModulePackages extends Attribute {
     /**
      * @return array of indices into constant pool of package names.
      */
+    @Pure
     public int[] getPackageIndexTable() {
         return packageIndexTable;
     }
@@ -118,6 +120,7 @@ public final class ModulePackages extends Attribute {
     /**
      * @return Length of package table.
      */
+    @Pure
     public @NonNegative int getNumberOfPackages() {
         return packageIndexTable == null ? 0 : packageIndexTable.length;
     }

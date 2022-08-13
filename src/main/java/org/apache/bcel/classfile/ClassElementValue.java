@@ -23,6 +23,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -42,6 +43,7 @@ public class ClassElementValue extends ElementValue
         this.idx = idx;
     }
 
+    @Pure
     public @NonNegative int getIndex()
     {
         return idx;

@@ -25,6 +25,7 @@ import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -83,6 +84,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * @return number of dimensions to be created
      */
+    @Pure
     public final @NonNegative short getDimensions() {
         return dimensions;
     }

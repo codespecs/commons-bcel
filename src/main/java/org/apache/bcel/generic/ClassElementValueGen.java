@@ -25,6 +25,7 @@ import org.apache.bcel.classfile.ConstantUtf8;
 import org.apache.bcel.classfile.ElementValue;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -77,6 +78,7 @@ public class ClassElementValueGen extends ElementValueGen
         }
     }
 
+    @Pure
     public @NonNegative int getIndex()
     {
         return idx;

@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -95,6 +96,7 @@ public final class ConstantString extends Constant implements ConstantObject {
     /**
      * @return Index in constant pool of the string (ConstantUtf8).
      */
+    @Pure
     public @NonNegative int getStringIndex() {
         return stringIndex;
     }

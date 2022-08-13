@@ -28,6 +28,7 @@ import org.apache.bcel.util.ByteSequence;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.checkerframework.checker.initialization.qual.UnderInitialization;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -123,6 +124,7 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
      * @return index in constant pool referred by this instruction.
      */
     @Override
+    @Pure
     public final @NonNegative int getIndex() {
         return index;
     }

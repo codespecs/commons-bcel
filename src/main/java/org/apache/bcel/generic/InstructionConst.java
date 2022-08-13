@@ -20,6 +20,7 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -294,6 +295,7 @@ public final class InstructionConst {
      * @param index the index, e.g. {@link Const#RETURN}
      * @return the entry from the private INSTRUCTIONS table
      */
+    @Pure
     public static Instruction getInstruction(final @NonNegative int index) {
         return INSTRUCTIONS[index];
     }

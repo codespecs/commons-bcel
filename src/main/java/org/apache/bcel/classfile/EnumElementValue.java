@@ -23,6 +23,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -78,11 +79,13 @@ public class EnumElementValue extends ElementValue
         return cu8.getBytes();
     }
 
+    @Pure
     public @NonNegative int getValueIndex()
     {
         return valueIdx;
     }
 
+    @Pure
     public @NonNegative int getTypeIndex()
     {
         return typeIdx;

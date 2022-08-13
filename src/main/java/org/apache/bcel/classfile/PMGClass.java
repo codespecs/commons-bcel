@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -108,6 +109,7 @@ public final class PMGClass extends Attribute {
     /**
      * @return Index in constant pool of source file name.
      */
+    @Pure
     public @NonNegative int getPMGClassIndex() {
         return pmgClassIndex;
     }
@@ -124,6 +126,7 @@ public final class PMGClass extends Attribute {
     /**
      * @return Index in constant pool of source file name.
      */
+    @Pure
     public @NonNegative int getPMGIndex() {
         return pmgIndex;
     }

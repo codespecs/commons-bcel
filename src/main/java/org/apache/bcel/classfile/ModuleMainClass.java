@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -103,6 +104,7 @@ public final class ModuleMainClass extends Attribute {
     /**
      * @return index into constant pool of host class name.
      */
+    @Pure
     public @NonNegative int getHostClassIndex() {
         return mainClassIndex;
     }

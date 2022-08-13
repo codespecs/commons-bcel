@@ -26,6 +26,7 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * This class implements an adapter; it implements both a Swing ListModel and a VerifierFactoryObserver.
@@ -66,6 +67,7 @@ public class VerifierFactoryListModel implements VerifierFactoryObserver, javax.
     }
 
     @Override
+    @Pure
     public synchronized @NonNegative int getSize() {
         return cache.size();
     }

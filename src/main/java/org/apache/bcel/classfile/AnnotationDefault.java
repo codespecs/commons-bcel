@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -80,6 +81,7 @@ public class AnnotationDefault extends Attribute {
     /**
      * @return the default value
      */
+    @Pure
     public final ElementValue getDefaultValue() {
         return defaultValue;
     }

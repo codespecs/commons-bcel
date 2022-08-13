@@ -22,6 +22,7 @@ import org.apache.bcel.classfile.LocalVariable;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -124,11 +125,13 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
+    @Pure
     public @NonNegative int getIndex() {
         return index;
     }
 
 
+    @Pure
     public @NonNegative int getOrigIndex() {
         return origIndex;
     }
@@ -139,6 +142,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
+    @Pure
     public boolean getLiveToEnd() {
         return liveToEnd;
     }
@@ -151,6 +155,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 
 
     @Override
+    @Pure
     public String getName() {
         return name;
     }
@@ -163,16 +168,19 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 
 
     @Override
+    @Pure
     public Type getType() {
         return type;
     }
 
 
+    @Pure
     public InstructionHandle getStart() {
         return start;
     }
 
 
+    @Pure
     public InstructionHandle getEnd() {
         return end;
     }

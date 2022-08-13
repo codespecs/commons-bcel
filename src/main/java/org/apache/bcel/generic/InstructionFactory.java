@@ -22,6 +22,7 @@ import org.apache.bcel.Const;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signature.qual.ClassGetName;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -792,6 +793,7 @@ public class InstructionFactory implements InstructionConstants {
     }
 
 
+    @Pure
     public @Nullable ClassGen getClassGen() {
         return cg;
     }
@@ -802,6 +804,7 @@ public class InstructionFactory implements InstructionConstants {
     }
 
 
+    @Pure
     public ConstantPoolGen getConstantPool() {
         return cp;
     }

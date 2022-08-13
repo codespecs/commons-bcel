@@ -23,6 +23,7 @@ import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -100,6 +101,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
      * @return index of local variable containg the return address
      */
     @Override
+    @Pure
     public final @NonNegative int getIndex() {
         return index;
     }
@@ -130,6 +132,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /** @return return address type
      */
     @Override
+    @Pure
     public Type getType( final ConstantPoolGen cp ) {
         return ReturnaddressType.NO_TARGET;
     }

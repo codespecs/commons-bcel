@@ -23,6 +23,7 @@ import org.apache.bcel.classfile.LineNumber;
 
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -99,6 +100,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable {
     }
 
 
+    @Pure
     public InstructionHandle getInstruction() {
         return ih;
     }
@@ -109,6 +111,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable {
     }
 
 
+    @Pure
     public @GTENegativeOne int getSourceLine() {
         return srcLine;
     }

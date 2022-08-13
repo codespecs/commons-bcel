@@ -26,6 +26,7 @@ import org.apache.bcel.util.ByteSequence;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.checkerframework.checker.interning.qual.InternedDistinct;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -156,6 +157,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
      * @return local variable index (n) referred by this instruction.
      */
     @Override
+    @Pure
     public final @NonNegative int getIndex() {
         return n;
     }
@@ -190,6 +192,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /** @return canonical tag for instruction, e.g., ALOAD for ALOAD_0
      */
+    @Pure
     public short getCanonicalTag() {
         return canonTag;
     }
@@ -204,6 +207,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
      * @return type associated with the instruction
      */
     @Override
+    @Pure
     public @InternedDistinct Type getType( final ConstantPoolGen cp ) {
         switch (canonTag) {
             case Const.ILOAD:

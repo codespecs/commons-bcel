@@ -24,6 +24,7 @@ import org.apache.bcel.util.ByteSequence;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -262,6 +263,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * @return array of match indices
      */
+    @Pure
     public int[] getMatchs() {
         return match;
     }
@@ -270,6 +272,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * @return array of match target offsets
      */
+    @Pure
     public int[] getIndices() {
         return indices;
     }
@@ -278,6 +281,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * @return array of match targets
      */
+    @Pure
     public InstructionHandle[] getTargets() {
         return targets;
     }

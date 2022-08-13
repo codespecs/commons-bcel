@@ -25,6 +25,7 @@ import java.util.Arrays;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -84,6 +85,7 @@ public class BootstrapMethod implements Cloneable {
     /**
      * @return index into constant_pool of bootstrap_method
      */
+    @Pure
     public @NonNegative int getBootstrapMethodRef() {
         return bootstrapMethodRef;
     }
@@ -105,6 +107,7 @@ public class BootstrapMethod implements Cloneable {
     /**
      * @return count of number of boostrap arguments
      */
+    @Pure
     public @NonNegative int getNumBootstrapArguments() {
         return bootstrapArguments.length;
     }

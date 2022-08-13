@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -111,6 +112,7 @@ public final class NestMembers extends Attribute {
     /**
      * @return array of indices into constant pool of class names.
      */
+    @Pure
     public int[] getClasses() {
         return classes;
     }
@@ -119,6 +121,7 @@ public final class NestMembers extends Attribute {
     /**
      * @return Length of classes table.
      */
+    @Pure
     public @NonNegative int getNumberClasses() {
         return classes == null ? 0 : classes.length;
     }

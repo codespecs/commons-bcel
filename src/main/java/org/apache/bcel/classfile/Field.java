@@ -27,6 +27,7 @@ import org.apache.bcel.util.BCELComparator;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -104,6 +105,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @return constant value associated with this field (may be null)
      */
+    @Pure
     public @Nullable ConstantValue getConstantValue() {
         for (final Attribute attribute : super.getAttributes()) {
             if (attribute.getTag() == Const.ATTR_CONSTANT_VALUE) {
@@ -165,6 +167,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @return Comparison strategy object
      */
+    @Pure
     public static BCELComparator getComparator() {
         return bcelComparator;
     }

@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -95,6 +96,7 @@ public final class StackMap extends Attribute {
     /**
      * @return Array of stack map entries
      */
+    @Pure
     public StackMapEntry[] getStackMap() {
         return map;
     }
@@ -158,6 +160,7 @@ public final class StackMap extends Attribute {
     }
 
 
+    @Pure
     public @NonNegative int getMapLength() {
         return map == null ? 0 : map.length;
     }

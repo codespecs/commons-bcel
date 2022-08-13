@@ -36,6 +36,7 @@ import org.apache.bcel.classfile.RuntimeVisibleAnnotations;
 import org.apache.bcel.classfile.RuntimeVisibleParameterAnnotations;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -134,6 +135,7 @@ public class AnnotationEntryGen {
         evs.add(evp);
     }
 
+    @Pure
     public @NonNegative int getTypeIndex() {
         return typeIndex;
     }
@@ -153,6 +155,7 @@ public class AnnotationEntryGen {
     /**
      * Returns list of ElementNameValuePair objects
      */
+    @Pure
     public List<ElementValuePairGen> getValues() {
         return evs;
     }

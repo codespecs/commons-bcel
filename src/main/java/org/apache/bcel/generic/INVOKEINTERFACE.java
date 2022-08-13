@@ -26,6 +26,7 @@ import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
@@ -77,6 +78,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
      * The <B>count</B> argument according to the Java Language Specification,
      * Second Edition.
      */
+    @Pure
     public @NonNegative int getCount() {
         return nargs;
     }

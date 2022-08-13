@@ -22,6 +22,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.apache.bcel.Const;
+import org.checkerframework.dataflow.qual.Pure;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -104,6 +105,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return Reference (index) to class this constant refers to.
      */
+    @Pure
     public final @NonNegative int getClassIndex() {
         return class_index;
     }
@@ -120,6 +122,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return Reference (index) to signature of the field.
      */
+    @Pure
     public final @NonNegative int getNameAndTypeIndex() {
         return name_and_type_index;
     }
