@@ -17,6 +17,7 @@
  */
 package org.apache.bcel.util;
 
+import java.io.Closeable;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,17 +39,19 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.SourceFile;
 import org.apache.bcel.classfile.Utility;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.mustcall.qual.Owning;
 
 /**
  * Convert found attributes into HTML file.
  *
  *
  */
-final class AttributeHTML {
+final class AttributeHTML implements Closeable {
 
     private final String class_name; // name of current class
-    private final PrintWriter file; // file to write to
+    private final @Owning PrintWriter file; // file to write to
     private @NonNegative int attr_count = 0;
     private final ConstantHTML constant_html;
     private final ConstantPool constant_pool;
@@ -70,7 +73,8 @@ final class AttributeHTML {
     }
 
 
-    void close() {
+    @EnsuresCalledMethods(value = "file", methods = "close")
+    public void close() {
         file.println("</TABLE></BODY></HTML>");
         file.close();
     }

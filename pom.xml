@@ -563,6 +563,11 @@
                 <!-- Indicate if type-checking errors should be warnings. -->
                 <arg>${compilerArgument1}</arg>
                 <arg>-AshowSuppressWarningsStrings</arg>
+                <!-- To test one typechecker, comment out all other typecheckers above,
+                     comment out -Awarns and/or ${compilerArgument1}, and uncomment these lines.
+		<arg>-AwarnUnneededSuppressions</arg>
+		<arg>-ArequirePrefixInWarningSuppressions</arg>
+                -->
               </compilerArgs>
               <testExcludes>
                 <testExclude>**/*Benchmark*</testExclude>
