@@ -467,7 +467,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
                 queue.enqueue(iface);
             }
         }
-        return allInterfaces.toArray(JavaClass.EMPTY_ARRAY);
+        return allInterfaces.toArray(EMPTY_ARRAY);
     }
 
     /**
@@ -480,6 +480,22 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
         }
 
         return annotations;
+    }
+
+    /**
+     * Gets attribute for given tag.
+     * @return Attribute for given tag, null if not found.
+     * Refer to {@link org.apache.bcel.Const#ATTR_UNKNOWN} constants named ATTR_* for possible values.
+     * @since 6.10.0
+     */
+    @SuppressWarnings("unchecked")
+    public final <T extends Attribute> T getAttribute(final byte tag) {
+        for (final Attribute attribute : getAttributes()) {
+            if (attribute.getTag() == tag) {
+                return (T) attribute;
+            }
+        }
+        return null;
     }
 
     /**
@@ -665,7 +681,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
         for (clazz = clazz.getSuperClass(); clazz != null; clazz = clazz.getSuperClass()) {
             allSuperClasses.add(clazz);
         }
-        return allSuperClasses.toArray(JavaClass.EMPTY_ARRAY);
+        return allSuperClasses.toArray(EMPTY_ARRAY);
     }
 
     /**
@@ -703,7 +719,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
         if (!inter.isInterface()) {
             throw new IllegalArgumentException(inter.getClassName() + " is no interface");
         }
-        if (this.equals(inter)) {
+        if (equals(inter)) {
             return true;
         }
         final JavaClass[] superInterfaces = getAllInterfaces();
@@ -722,7 +738,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
      * @throws ClassNotFoundException if superclasses or superinterfaces of this object can't be found
      */
     public final boolean instanceOf(final JavaClass superclass) throws ClassNotFoundException {
-        if (this.equals(superclass)) {
+        if (equals(superclass)) {
             return true;
         }
         for (final JavaClass clazz : getSuperClasses()) {
