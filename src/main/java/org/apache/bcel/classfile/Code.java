@@ -103,7 +103,7 @@ public final class Code extends Attribute {
         final int attributesCount = file.readUnsignedShort();
         attributes = new Attribute[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
-            attributes[i] = Attribute.readAttribute(file, constantPool);
+            attributes[i] = readAttribute(file, constantPool);
         }
         /*
          * Adjust length, because of setAttributes in this(), s.b. length is incorrect, because it didn't take the internal
@@ -254,6 +254,20 @@ public final class Code extends Attribute {
         for (final Attribute attribute : attributes) {
             if (attribute instanceof LocalVariableTable) {
                 return (LocalVariableTable) attribute;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the local variable type table attribute {@link LocalVariableTypeTable}.
+     * @return LocalVariableTypeTable of Code, if it has one, null otherwise.
+     * @since 6.10.0
+     */
+    public LocalVariableTypeTable getLocalVariableTypeTable() {
+        for (final Attribute attribute : attributes) {
+            if (attribute instanceof LocalVariableTypeTable) {
+                return (LocalVariableTypeTable) attribute;
             }
         }
         return null;
